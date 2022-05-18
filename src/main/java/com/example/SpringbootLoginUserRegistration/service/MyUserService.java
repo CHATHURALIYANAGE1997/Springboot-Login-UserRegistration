@@ -74,6 +74,37 @@ public class MyUserService implements UserDetailsService {
         }
 
     }
+    
+        public void sendEmail(String recipientEmail, String link)
+            throws MessagingException, UnsupportedEncodingException {
+
+
+        SimpleMailMessage message=new SimpleMailMessage();
+        message.setFrom("oraclefreightsolutionspvt@gmail.com");
+        message.setTo(recipientEmail);
+
+//        MimeMessage message = mailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+//        helper.setFrom("chathurabimalka1997@gmail.com", "Shopme Support");
+//        helper.setTo(recipientEmail);
+
+        String subject = "Here's the link to reset your password";
+
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Click the link below to change your password:</p>"
+                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                + "<br>"
+                + "<p>Ignore this email if you do remember your password, "
+                + "or you have not made the request.</p>";
+        message.setSubject(subject);
+        message.setText(content);
+//        helper.setSubject(subject);
+//
+//        helper.setText(content, true);
+        mailSender.send(message);
+    }
 
 
 }
