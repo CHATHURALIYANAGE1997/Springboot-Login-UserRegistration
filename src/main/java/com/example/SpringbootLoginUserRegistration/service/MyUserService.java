@@ -34,8 +34,21 @@ public class MyUserService implements UserDetailsService {
         return user;
     }
     
-        public void processforgotPassword(String email, String token, HttpServletRequest request, Model model){
-                try {
+    public void updateResetPasswordToken(String token, String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user != null ) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+    
+    
+    
+    
+    public void processforgotPassword(String email, String token, HttpServletRequest request, Model model){
+       try {
             updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             System.out.println(email);
