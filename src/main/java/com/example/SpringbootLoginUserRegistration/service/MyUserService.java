@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyUserService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+    @Value("$(site.base.url.https)")
+    private String emailService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
