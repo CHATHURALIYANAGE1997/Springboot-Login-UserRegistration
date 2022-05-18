@@ -44,7 +44,9 @@ public class MyUserService implements UserDetailsService {
         }
     }
     
-    
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
     
     
     public void processforgotPassword(String email, String token, HttpServletRequest request, Model model){
