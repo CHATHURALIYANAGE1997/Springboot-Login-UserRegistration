@@ -77,7 +77,6 @@ public class MyUserService implements UserDetailsService {
                 try {
             updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
-            System.out.println(email);
             sendEmail(email, resetPasswordLink);
             model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
 
