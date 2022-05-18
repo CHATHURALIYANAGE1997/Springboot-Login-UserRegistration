@@ -23,10 +23,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    public AppConfig (UserDetailsService userDetailsService){
-//        super();
-//        this.userDetailsService=userDetailsService;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,17 +34,11 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
-        //provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         return provider;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-//        http.authorizeRequests()
-//                .antMatchers("/forgot-passowrd").permitAll();
-//                //.antMatchers("/login").permitAll();
 
                 http
                 .csrf().disable()
@@ -65,39 +55,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
 
-
-//        http
-//                .csrf().disable()
-//                .authorizeRequests().antMatchers("/login").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .and()
-//                .logout().invalidateHttpSession(true)
-//                .clearAuthentication(true)
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/logout-success").permitAll();
-
-//        http.
-//                csrf().disable().
-//                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-//                and().
-//                authorizeRequests().
-//                antMatchers("/api/v1/signup").permitAll().
-//                anyRequest().authenticated().
-//                and().
-//                anonymous().disable();
-//        http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
-
-
     }
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        super.configure(web);
-//        web.ignoring().antMatchers("/forgot-passowrd");
-//
-//    }
 
 }
