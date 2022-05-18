@@ -48,6 +48,15 @@ public class MyUserService implements UserDetailsService {
         return userRepository.findByResetPasswordToken(token);
     }
     
+    public void updatePassword(User customer, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        customer.setPassword(encodedPassword);
+
+        customer.setResetPasswordToken(null);
+        userRepository.save(customer);
+    }
+    
     
     public void processforgotPassword(String email, String token, HttpServletRequest request, Model model){
        try {
