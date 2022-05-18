@@ -33,6 +33,23 @@ public class MyUserService implements UserDetailsService {
        userRepository.save(user);
         return user;
     }
+    
+        public void processforgotPassword(String email, String token, HttpServletRequest request, Model model){
+                try {
+            updateResetPasswordToken(token, email);
+            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            System.out.println(email);
+            sendEmail(email, resetPasswordLink);
+            model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
+
+        }
+        catch (UsernameNotFoundException ex) {
+            model.addAttribute("error", ex.getMessage());
+        } catch (UnsupportedEncodingException | MessagingException e) {
+            model.addAttribute("error", "Error while sending email");
+        }
+
+    }
 
 
 }
