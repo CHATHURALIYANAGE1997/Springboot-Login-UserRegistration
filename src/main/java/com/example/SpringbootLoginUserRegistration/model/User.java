@@ -35,6 +35,9 @@ public class User {
 
         return false;
     }
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
@@ -71,5 +74,11 @@ public class User {
         this.roles = roles;
     }
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
 
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
 }
