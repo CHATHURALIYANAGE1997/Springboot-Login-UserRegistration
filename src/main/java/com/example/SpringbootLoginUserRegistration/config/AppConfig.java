@@ -43,7 +43,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 http
                 .csrf().disable()
                         .authorizeRequests().antMatchers("/reset_password/**").permitAll().and()
-                 .authorizeRequests().antMatchers("/forgot_password").permitAll().and()
+                 .authorizeRequests().antMatchers("/forgot_password","/adduser").permitAll().and()
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
